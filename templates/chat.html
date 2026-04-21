@@ -49,6 +49,13 @@
 		</div>
 		
 		<script>
+			let user_id = localStorage.getItem("user_id");
+
+			if (!user_id) {
+				user_id = crypto.randomUUID();
+				localStorage.setItem("user_id", user_id);
+			}
+
 			$(document).ready(function() {
 				$("#messageArea").on("submit", function(event) {
 					const date = new Date();
@@ -64,7 +71,8 @@
 
 					$.ajax({
 						data: {
-							msg: rawText,	
+							msg: rawText,
+							user_id: user_id   // ✅ ADD THIS LINE
 						},
 						type: "POST",
 						url: "/get",
